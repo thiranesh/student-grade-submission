@@ -92,6 +92,16 @@ const Teacher = mongoose.model('Teacher', teacherSchema);
 const Student = mongoose.model('Student', studentSchema);
 const Grade = mongoose.model('Grade', gradeSchema);
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Student Grade Submission API is running!', status: 'OK' });
+});
+
+// Test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Backend is working!', timestamp: new Date() });
+});
+
 // Student Routes
 app.post('/api/students/register', async (req, res) => {
   try {
@@ -401,6 +411,7 @@ app.put('/api/grades/:id', updateGradeRoute);
 app.delete('/api/grades/:id', deleteGradeRoute);
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log('Connected to MongoDB Atlas');
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log('✅ Connected to MongoDB Atlas');
+  console.log(`🌐 API available at: http://localhost:${PORT}`);
 });
