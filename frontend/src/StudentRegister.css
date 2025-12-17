@@ -1,0 +1,206 @@
+.register-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  padding: 20px 0;
+}
+
+.register-background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 50%, #667eea 100%);
+  z-index: -1;
+}
+
+.register-form {
+  min-height: 900px;
+  width: 450px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 20px 35px 30px 35px;
+  animation: formSlideIn 1s ease-out;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  max-height: 95vh;
+}
+
+@keyframes formSlideIn {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.register-form .logo-section {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.register-form .logo-icon {
+  font-size: 35px;
+  margin-bottom: 8px;
+}
+
+.register-form h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.register-form .subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.register-form .input-group {
+  margin-bottom: 12px;
+}
+
+.register-form .input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.register-form .input-group input {
+  display: block;
+  height: 42px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.register-form .input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.register-form .input-group input:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.register-form .input-group textarea {
+  display: block;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  resize: none;
+  height: 40px;
+}
+
+.register-form .input-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.register-form .input-group textarea:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.file-input {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 10px 15px !important;
+  color: white !important;
+  font-size: 14px !important;
+}
+
+.file-input::-webkit-file-upload-button {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.file-input::-webkit-file-upload-button:hover {
+  background: linear-gradient(45deg, #5a6fd8, #6a4190);
+}
+
+.register-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  flex-shrink: 0;
+}
+
+.register-btn {
+  width: 100%;
+  background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+  color: white;
+  padding: 12px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.5);
+}
+
+.back-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  padding: 10px 0;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
