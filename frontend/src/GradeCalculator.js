@@ -18,7 +18,28 @@ function GradeCalculator({ currentUser }) {
 
   const fetchStudentGrades = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/grades?studentId=${currentUser.studentId}`);
+      const response = await axios.get(`${config.API_URL}/api/grades?studentId=${currentUser.studentId}`);import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from './config';
+import './GradeCalculator.css';
+
+function GradeCalculator({ currentUser }) {
+  const [subjects, setSubjects] = useState([{ name: '', grade: '', credits: '' }]);
+  const [loading, setLoading] = useState(false);
+  const [manualMode, setManualMode] = useState(true);
+
+  useEffect(() => {
+    if (currentUser && !manualMode) {
+      fetchStudentGrades();
+    }
+  }, [currentUser, manualMode]);
+
+  const fetchStudentGrades = async () => {
+    if (!currentUser?.studentId) return;
+    
+    setLoading(true);
+    try {
+      const response = await axios.get(`${config.API_URL}/api/grades?studentId=${currentUser.studentId}`);
       const grades = response.data;
       
       if (grades.length > 0) {

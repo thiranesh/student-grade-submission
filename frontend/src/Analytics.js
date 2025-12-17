@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import config from './config';
 import './Analytics.css';
 
 function Analytics() {
@@ -12,7 +13,7 @@ function Analytics() {
 
   const fetchAnalytics = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/analytics');
+      const response = await axios.get(`${config.API_URL}/api/analytics`);
       setAnalytics(response.data);
       setLoading(false);
     } catch (error) {

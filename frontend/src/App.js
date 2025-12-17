@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import config from './config';
 import Login from './Login';
 import StudentRegister from './StudentRegister';
 import Analytics from './Analytics';
@@ -47,7 +48,7 @@ function App() {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/students');
+      const response = await axios.get(`${config.API_URL}/api/students`);
       setStudents(response.data);
     } catch (error) {
       console.error('Error fetching students:', error);
@@ -57,7 +58,7 @@ function App() {
   const fetchTeacherProfile = async () => {
     try {
       if (currentUser?.teacherId) {
-        const response = await axios.get(`http://localhost:5000/api/teacher/profile/${currentUser.teacherId}`);
+        const response = await axios.get(`${config.API_URL}/api/teacher/profile/${currentUser.teacherId}`);
         setTeacherProfile(response.data);
       } else if (currentUser) {
         // If currentUser exists but no teacherId, use the currentUser data directly
@@ -75,8 +76,8 @@ function App() {
   const fetchGrades = async (studentId = '') => {
     try {
       const url = studentId 
-        ? `http://localhost:5000/api/grades?studentId=${studentId}`
-        : 'http://localhost:5000/api/grades';
+        ? `${config.API_URL}/api/grades?studentId=${studentId}`
+        : `${config.API_URL}/api/grades`;
       const response = await axios.get(url);
       setGrades(response.data);
     } catch (error) {
@@ -88,11 +89,11 @@ function App() {
     e.preventDefault();
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/grades/${editingId}`, formData);
+        await axios.put(`${config.API_URL}/api/grades/${editingId}`, formData);
         setEditingId(null);
         alert('Grade updated successfully!');
       } else {
-        await axios.post('http://localhost:5000/api/grades', formData);
+        await axios.post(`${config.API_URL}/api/grades`, formData);
         alert('Grade submitted successfully!');
       }
       setFormData({ studentId: '', studentName: '', subject: '', grade: '' });
@@ -116,7 +117,7 @@ function App() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this grade?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/grades/${id}`);
+        await axios.delete(`${config.API_URL}/api/grades/${id}`);
         fetchGrades();
         alert('Grade deleted successfully!');
       } catch (error) {

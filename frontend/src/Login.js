@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import config from './config';
 import './Login.css';
 
 function Login({ onLogin, onShowRegister }) {
@@ -15,7 +16,7 @@ function Login({ onLogin, onShowRegister }) {
     if (activeTab === 'teacher') {
       // Teacher login (multiple teachers)
       try {
-        const response = await axios.post('http://localhost:5000/api/teacher/login', {
+        const response = await axios.post(`${config.API_URL}/api/teacher/login`, {
           username: credentials.username,
           password: credentials.password
         });
@@ -29,7 +30,7 @@ function Login({ onLogin, onShowRegister }) {
     } else {
       // Student login (database check)
       try {
-        const response = await axios.post('http://localhost:5000/api/students/login', {
+        const response = await axios.post(`${config.API_URL}/api/students/login`, {
           studentId: credentials.username,
           password: credentials.password
         });
