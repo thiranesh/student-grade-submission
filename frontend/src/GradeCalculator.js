@@ -1,25 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './GradeCalculator.css';
-
-function GradeCalculator({ currentUser }) {
-  const [subjects, setSubjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [manualMode, setManualMode] = useState(false);
-
-  useEffect(() => {
-    if (currentUser?.studentId) {
-      fetchStudentGrades();
-    } else {
-      setSubjects([{ name: '', grade: '', credits: '' }]);
-      setLoading(false);
-    }
-  }, [currentUser]);
-
-  const fetchStudentGrades = async () => {
-    try {
-      const response = await axios.get(`${config.API_URL}/api/grades?studentId=${currentUser.studentId}`);import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import config from './config';
 import './GradeCalculator.css';
 
@@ -46,7 +26,7 @@ function GradeCalculator({ currentUser }) {
         const formattedSubjects = grades.map(grade => ({
           name: grade.subject,
           grade: grade.grade.toString(),
-          credits: '3' // Default credits, can be made configurable
+          credits: '3'
         }));
         setSubjects(formattedSubjects);
       } else {
