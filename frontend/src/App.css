@@ -881,3 +881,137 @@
     padding: 20px;
   }
 }
+
+/* Bulk Grade Submission Styles */
+.bulk-grade-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.bulk-grade-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 600px;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 200px repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  padding: 20px 15px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 15px 15px 0 0;
+  font-weight: 600;
+}
+
+.student-header {
+  font-size: 1.1rem;
+}
+
+.subject-header {
+  text-align: center;
+  font-size: 1rem;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 200px repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  padding: 15px;
+  border-bottom: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+  align-items: center;
+}
+
+.table-row:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.student-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.student-cell strong {
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.student-id-small {
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.grade-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.grade-input-bulk {
+  width: 80px;
+  padding: 8px 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.grade-input-bulk:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+}
+
+.bulk-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #f0f0f0;
+}
+
+.submit-bulk-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.submit-bulk-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(40, 167, 69, 0.4);
+}
+
+.clear-bulk-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(45deg, #6c757d, #495057);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.clear-bulk-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(108, 117, 125, 0.4);
+}

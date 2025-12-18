@@ -24,6 +24,7 @@ function App() {
   });
   const [editingId, setEditingId] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [bulkGrades, setBulkGrades] = useState({});
 
   useEffect(() => {
     if (isLoggedIn === 'teacher') {
@@ -161,6 +162,51 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
+
+  const handleBulkGradeChange = (studentId, subject, grade) => {
+    setBulkGrades(prev => ({
+      ...prev,
+      [`${studentId}-${subject}`]: grade
+    }));
+  };
+
+  const handleBulkSubmit = async () => {
+    const gradesToSubmit = [];
+    
+    Object.entries(bulkGrades).forEach(([key, grade]) => {
+      if (grade && grade.trim() !== '') {
+        const [studentId, subject] = key.split('-');
+        const student = students.find(s => s.studentId === studentId);
+        if (student) {
+          gradesToSubmit.push({
+            studentId,
+            studentName: student.name,
+            subject,
+            grade: parseFloat(grade)
+          });
+        }
+      }
+    });
+
+    if (gradesToSubmit.length === 0) {
+      alert('Please enter at least one grade!');
+      return;
+    }
+
+    try {
+      for (const gradeData of gradesToSubmit) {
+        await axios.post(`${config.API_URL}/api/grades`, gradeData);
+      }
+      alert(`Successfully submitted ${gradesToSubmit.length} grades!`);
+      setBulkGrades({});
+      fetchGrades();
+    } catch (error) {
+      console.error('Error submitting grades:', error);
+      alert('Error submitting grades. Please try again.');
+    }
+  };
+
   const renderSubmitPage = () => {
     if (isLoggedIn === 'student') {
       return (
@@ -215,68 +261,56 @@ function App() {
     return (
       <div className="page-container">
         <div className="submit-page">
-          <h1>{editingId ? '✏️ Edit Grade' : '📝 Submit New Grade'}</h1>
-          <form onSubmit={handleSubmit} className="grade-form">
-            <select
-              name="studentId"
-              value={formData.studentId}
-              onChange={(e) => {
-                const selectedStudent = students.find(s => s.studentId === e.target.value);
-                setFormData({
-                  ...formData,
-                  studentId: e.target.value,
-                  studentName: selectedStudent ? selectedStudent.name : ''
-                });
-              }}
-              required
-            >
-              <option value="">🆔 Select Student</option>
-              {students.map(student => (
-                <option key={student.studentId} value={student.studentId}>
-                  {student.studentId} - {student.name}
-                </option>
-              ))}
-            </select>
-            <input
-              type="text"
-              name="studentName"
-              placeholder="👤 Student Name"
-              value={formData.studentName}
-              onChange={handleChange}
-              required
-            />
-            <select
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-            >
-              <option value="">📚 Select Subject</option>
-              {teacherProfile?.subjects?.map(subject => (
-                <option key={subject} value={subject}>
-                  {subject}
-                </option>
-              ))}
-            </select>
-            <input
-              type="number"
-              name="grade"
-              placeholder="🎯 Grade (0-100)"
-              min="0"
-              max="100"
-              value={formData.grade}
-              onChange={handleChange}
-              required
-            />
-            <button type="submit">
-              {editingId ? '✅ Update Grade' : '🚀 Submit Grade'}
-            </button>
-            {editingId && (
-              <button type="button" onClick={handleCancel}>
-                ❌ Cancel
-              </button>
-            )}
-          </form>
+          <h1>📝 Submit Grades - Bulk Entry</h1>
+          
+          {students.length === 0 ? (
+            <div className="empty-state">
+              <h3>📋 No students registered yet</h3>
+              <p>Students need to register first before you can submit grades</p>
+            </div>
+          ) : (
+            <div className="bulk-grade-container">
+              <div className="bulk-grade-table">
+                <div className="table-header">
+                  <div className="student-header">👨🎓 Student</div>
+                  {teacherProfile?.subjects?.map(subject => (
+                    <div key={subject} className="subject-header">📚 {subject}</div>
+                  ))}
+                </div>
+                
+                {students.map(student => (
+                  <div key={student.studentId} className="table-row">
+                    <div className="student-cell">
+                      <strong>{student.name}</strong>
+                      <span className="student-id-small">🆔 {student.studentId}</span>
+                    </div>
+                    {teacherProfile?.subjects?.map(subject => (
+                      <div key={subject} className="grade-cell">
+                        <input
+                          type="number"
+                          min="0"
+                          max="100"
+                          placeholder="0-100"
+                          value={bulkGrades[`${student.studentId}-${subject}`] || ''}
+                          onChange={(e) => handleBulkGradeChange(student.studentId, subject, e.target.value)}
+                          className="grade-input-bulk"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              
+              <div className="bulk-actions">
+                <button onClick={handleBulkSubmit} className="submit-bulk-btn">
+                  🚀 Submit All Grades
+                </button>
+                <button onClick={() => setBulkGrades({})} className="clear-bulk-btn">
+                  🗑️ Clear All
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
