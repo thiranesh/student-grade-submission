@@ -696,6 +696,159 @@
   }
 }
 
+/* Student Groups Styles */
+.student-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.student-group-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.student-group-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.student-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.student-group-header h3 {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.student-id {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.grades-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.grade-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(248, 249, 250, 0.8);
+  padding: 20px;
+  border-radius: 15px;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.grade-item:hover {
+  background: rgba(248, 249, 250, 1);
+  transform: translateX(5px);
+}
+
+.grade-item:has(.arrear) {
+  border-left-color: #ff4757;
+}
+
+.grade-item:has(.pass) {
+  border-left-color: #ffa726;
+}
+
+.grade-item:has(.second) {
+  border-left-color: #42a5f5;
+}
+
+.grade-item:has(.first) {
+  border-left-color: #66bb6a;
+}
+
+.grade-item:has(.distinction) {
+  border-left-color: #ab47bc;
+}
+
+.grade-item-info {
+  flex: 1;
+}
+
+.grade-item-info strong {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.grade-item .grade-score {
+  font-size: 1.2rem;
+  margin: 8px 0;
+  display: inline-block;
+  padding: 6px 12px;
+}
+
+.grade-item .grade-date {
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.grade-item .grade-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 20px;
+}
+
+.grade-item .grade-actions button {
+  padding: 8px 12px;
+  font-size: 11px;
+  min-width: 60px;
+}
+
+@media (max-width: 768px) {
+  .grade-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .grade-item .grade-actions {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .grade-item .grade-actions button {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 12px;
+  }
+  
+  .student-group-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
 @media (max-width: 480px) {
   .navigation {
     padding: 12px 15px;
@@ -718,5 +871,13 @@
   .mobile-logout-btn {
     font-size: 14px;
     padding: 12px 15px;
+  }
+  
+  .student-groups {
+    gap: 20px;
+  }
+  
+  .student-group-card {
+    padding: 20px;
   }
 }

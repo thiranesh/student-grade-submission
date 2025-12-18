@@ -313,6 +313,19 @@ function App() {
       );
     }
     
+    // Group grades by student
+    const groupedGrades = grades.reduce((acc, grade) => {
+      if (!acc[grade.studentId]) {
+        acc[grade.studentId] = {
+          studentId: grade.studentId,
+          studentName: grade.studentName,
+          grades: []
+        };
+      }
+      acc[grade.studentId].grades.push(grade);
+      return acc;
+    }, {});
+    
     return (
       <div className="view-page">
         <h1>📊 All Student Grades</h1>
@@ -322,26 +335,35 @@ function App() {
             <p>Start by submitting your first grade!</p>
           </div>
         ) : (
-          <div className="grades-grid">
-            {grades.map((grade) => (
-              <div key={grade._id} className="grade-card">
-                <div className="grade-info">
-                  <strong>👤 {grade.studentName} (ID: {grade.studentId})</strong>
-                  <div className="grade-subject">📚 {grade.subject}</div>
-                  <div className={`grade-score ${getGradeStatus(grade.grade).class}`}>
-                    {grade.grade}% - {getGradeStatus(grade.grade).status}
-                  </div>
-                  <div className="grade-date">
-                    📅 {new Date(grade.submittedAt).toLocaleDateString()}
-                  </div>
+          <div className="student-groups">
+            {Object.values(groupedGrades).map((student) => (
+              <div key={student.studentId} className="student-group-card">
+                <div className="student-group-header">
+                  <h3>👤 {student.studentName}</h3>
+                  <span className="student-id">🆔 {student.studentId}</span>
                 </div>
-                <div className="grade-actions">
-                  <button onClick={() => { handleEdit(grade); setCurrentPage('submit'); }}>
-                    ✏️ Edit
-                  </button>
-                  <button onClick={() => handleDelete(grade._id)}>
-                    🗑️ Delete
-                  </button>
+                <div className="grades-list">
+                  {student.grades.map((grade) => (
+                    <div key={grade._id} className="grade-item">
+                      <div className="grade-item-info">
+                        <strong>📚 {grade.subject}</strong>
+                        <div className={`grade-score ${getGradeStatus(grade.grade).class}`}>
+                          {grade.grade}% - {getGradeStatus(grade.grade).status}
+                        </div>
+                        <div className="grade-date">
+                          📅 {new Date(grade.submittedAt).toLocaleDateString()}
+                        </div>
+                      </div>
+                      <div className="grade-actions">
+                        <button onClick={() => { handleEdit(grade); setCurrentPage('submit'); }}>
+                          ✏️ Edit
+                        </button>
+                        <button onClick={() => handleDelete(grade._id)}>
+                          🗑️ Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
